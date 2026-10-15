@@ -6,7 +6,7 @@ From a change you need during the event to installed apps showing it, with no ne
 
 Sources: [When your changes reach the app](https://ajayexpop.github.io/appbuilder/start/changes-reach-the-app/), [Update your app after launch](https://ajayexpop.github.io/appbuilder/after/updating/), [Per event, per language or for the whole app](https://ajayexpop.github.io/appbuilder/look/scope/).
 
-_App Studio Playbook v1.0.0, built from the App Studio guide v1.0.1, checked against App Studio bea65df on 14 Oct 2026. Each step links to the App Studio guide pages it comes from._
+_App Studio Playbook v1.0.1, built from the App Studio guide v1.1.0, checked against App Studio c1421d4 on 14 Oct 2026. Each step links to the App Studio guide pages it comes from._
 
 ## Who does what
 

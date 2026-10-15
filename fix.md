@@ -6,7 +6,7 @@ What App Studio's messages mean, and what to do when something does not work.
 
 Sources: [Messages, word for word](https://ajayexpop.github.io/appbuilder/help/messages/), [Set by your ExpoPlatform team](https://ajayexpop.github.io/appbuilder/help/set-by-team/).
 
-_App Studio Playbook v1.0.0, built from the App Studio guide v1.0.1, checked against App Studio bea65df on 14 Oct 2026. Each step links to the App Studio guide pages it comes from._
+_App Studio Playbook v1.0.1, built from the App Studio guide v1.1.0, checked against App Studio c1421d4 on 14 Oct 2026. Each step links to the App Studio guide pages it comes from._
 
 ## Who does what
 

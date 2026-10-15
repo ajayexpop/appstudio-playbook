@@ -2,7 +2,7 @@
 
 > Step-by-step journeys for setting up, launching and running an event app with App Studio, from ExpoPlatform. Each journey says what to do, who does it and where it can go wrong, and links to the full App Studio guide for the details.
 
-App Studio Playbook v1.0.0, built from the App Studio guide v1.0.1, checked against App Studio bea65df on 14 Oct 2026.
+App Studio Playbook v1.0.1, built from the App Studio guide v1.1.0, checked against App Studio c1421d4 on 14 Oct 2026.
 
 ## Journeys
 

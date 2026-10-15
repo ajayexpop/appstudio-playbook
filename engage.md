@@ -6,7 +6,7 @@ From a widget's switch to the new version that carries it, and from your game's 
 
 Sources: [Play & Win](https://ajayexpop.github.io/appbuilder/look/play-win/), [How to offer a home-screen widget in your app](https://ajayexpop.github.io/appbuilder/look/widgets/switch-on/), [Update your app after launch](https://ajayexpop.github.io/appbuilder/after/updating/).
 
-_App Studio Playbook v1.0.0, built from the App Studio guide v1.0.1, checked against App Studio bea65df on 14 Oct 2026. Each step links to the App Studio guide pages it comes from._
+_App Studio Playbook v1.0.1, built from the App Studio guide v1.1.0, checked against App Studio c1421d4 on 14 Oct 2026. Each step links to the App Studio guide pages it comes from._
 
 ## Who does what
 

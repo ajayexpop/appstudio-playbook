@@ -6,7 +6,7 @@ From a new app to people downloading it from the App Store and Google Play.
 
 Sources: [From test build to the stores](https://ajayexpop.github.io/appbuilder/release/journey/), [Add a new app](https://ajayexpop.github.io/appbuilder/start/new-app/).
 
-_App Studio Playbook v1.0.0, built from the App Studio guide v1.0.1, checked against App Studio bea65df on 14 Oct 2026. Each step links to the App Studio guide pages it comes from._
+_App Studio Playbook v1.0.1, built from the App Studio guide v1.1.0, checked against App Studio c1421d4 on 14 Oct 2026. Each step links to the App Studio guide pages it comes from._
 
 ## Who does what
 
@@ -46,7 +46,7 @@ The plan, in order, worked back from the date you enter (your event starts on):
 - First test builds sent to testers (Your move): the ask date, less the testing days and one day, on a working day.
 - Store listing, store screenshots and demo account ready (Your move): the ask date. A release is sent for review on its own, unless Store review still has something to sort out.
 - Ask ExpoPlatform to publish (Your move): the approval date, less the approval's working days.
-- ExpoPlatform approves the request (Our team is on it): the start of the stores' review. Your listing and builds then go to the stores, and your ExpoPlatform team confirms the date.
+- ExpoPlatform approves the request (Our team is on it): the start of the stores' review. Your listing is then sent, and each build goes on to its store's review; your ExpoPlatform team confirms the date.
 - The stores review the builds (The store is on it): the in-the-stores date, less the review days, on a working day. If a store turns the release down, a new release goes through ExpoPlatform's approval and the store's review again.
 - Your ExpoPlatform team starts the rollout (Our team is on it): the in-the-stores date. Apple releases an app's first iPhone version on approval, and Android's first 5% stage goes out by itself; Android beyond 5% waits for your ExpoPlatform team, who confirm the date.
 - App in the stores: the event, less the days in the stores, on a working day.
@@ -185,8 +185,9 @@ Sources: [From test build to the stores](https://ajayexpop.github.io/appbuilder/
 - Who: Your move
 - On screen (drawn from App Studio's code): Add a language, App name, Short description, Description, What's new, Save English
 - Watch out: A screenshot capture takes one pass per language of your store listing, or English when it has none: add your languages first.
+- Watch out: Google Play does not get these texts from App Studio, and neither store gets What's new: ask your ExpoPlatform contact how your texts reach Google Play.
 - Done when: Every language you need is saved.
-- Go deeper: [How to write the store texts for a language](https://ajayexpop.github.io/appbuilder/release/publish/write-store-texts/), [From test build to the stores](https://ajayexpop.github.io/appbuilder/release/journey/), [How to take store screenshots of your app](https://ajayexpop.github.io/appbuilder/release/screenshots/take-store-screenshots/)
+- Go deeper: [How to write the store texts for a language](https://ajayexpop.github.io/appbuilder/release/publish/write-store-texts/), [Set by your ExpoPlatform team](https://ajayexpop.github.io/appbuilder/help/set-by-team/), [From test build to the stores](https://ajayexpop.github.io/appbuilder/release/journey/), [How to take store screenshots of your app](https://ajayexpop.github.io/appbuilder/release/screenshots/take-store-screenshots/)
 
 ### 13. In Store screenshots, take the screenshots, make store artwork in Store studio, and attach it to your listing.
 
@@ -211,7 +212,7 @@ Sources: [From test build to the stores](https://ajayexpop.github.io/appbuilder/
 ### 15. Open Publish and read each store's card and What now.
 
 - Who: Your move
-- On screen: the Google Play card, “3 of 6 steps done”: Set up Done, Build Done, Test Done, Store listing Waiting, Publish Not yet, Live Not yet. What now (Our team is on it): “Your listing goes to Google Play with your publication”, “ExpoPlatform sends it when they approve your request to publish.”, with the button **Open releases**.
+- On screen: the App Store card, “3 of 6 steps done”: Set up Done, Build Done, Test Done, Store listing Waiting, Publish Not yet, Live Not yet. What now (Our team is on it): “Your listing goes to App Store with your publication”, “ExpoPlatform sends it when they approve your request to publish.”, with the button **Open releases**.
 - Why: Each store card shows six steps (Set up, Build, Test, Store listing, Publish and Live) and who acts next: Your move, Our team is on it or The store is on it.
 - Done when: Set up, Build and Test read Done on both store cards, and Store listing reads Done or, before the app's first release, What now says “Your listing goes to [store] with your publication”.
 - Go deeper: [How to check what is left before the app can go to the stores](https://ajayexpop.github.io/appbuilder/release/publish/check-what-is-left/), [From test build to the stores](https://ajayexpop.github.io/appbuilder/release/journey/)
@@ -234,10 +235,10 @@ Sources: [From test build to the stores](https://ajayexpop.github.io/appbuilder/
 
 - Who: Our team is on it
 - On screen: “Waiting for ExpoPlatform approval: App Store [version], Google Play [version], sent [when].”
-- Why: When they approve, your store listing goes to the stores and each build goes to its store's review.
+- Why: When they approve, your store listing is sent, and each build goes on to its store's review.
 - Watch out: A declined request reads “Declined: [reason]”, or “Declined: no reason given”: sort out what the reason names and submit again, or ask your ExpoPlatform contact when no reason is given.
 - Done when: Releases says “Approved [when]: [the builds] went to the stores' review. Follow it below.”
-- Go deeper: [From test build to the stores](https://ajayexpop.github.io/appbuilder/release/journey/), [How to ask ExpoPlatform to publish the app](https://ajayexpop.github.io/appbuilder/release/publish/ask-to-publish/), [Set by your ExpoPlatform team](https://ajayexpop.github.io/appbuilder/help/set-by-team/)
+- Go deeper: [From test build to the stores](https://ajayexpop.github.io/appbuilder/release/journey/), [How to ask ExpoPlatform to publish the app](https://ajayexpop.github.io/appbuilder/release/publish/ask-to-publish/), [How to write the store texts for a language](https://ajayexpop.github.io/appbuilder/release/publish/write-store-texts/), [Set by your ExpoPlatform team](https://ajayexpop.github.io/appbuilder/help/set-by-team/)
 
 ### 18. Apple and Google review the release. Follow it on Releases.
 

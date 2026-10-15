@@ -6,7 +6,7 @@ From your app's events to a sign-in screen that lets people in the way your even
 
 Sources: [Sign-in & registration](https://ajayexpop.github.io/appbuilder/build/app-sign-in/), [How to choose how people sign in to an event](https://ajayexpop.github.io/appbuilder/build/app-sign-in/choose-sign-in-mode/), [How to let new visitors register from the sign-in screen](https://ajayexpop.github.io/appbuilder/build/app-sign-in/add-register-button/), [How to change the sign-in pictures and the loading backdrop](https://ajayexpop.github.io/appbuilder/look/design/change-sign-in-pictures/).
 
-_App Studio Playbook v1.0.0, built from the App Studio guide v1.0.1, checked against App Studio bea65df on 14 Oct 2026. Each step links to the App Studio guide pages it comes from._
+_App Studio Playbook v1.0.1, built from the App Studio guide v1.1.0, checked against App Studio c1421d4 on 14 Oct 2026. Each step links to the App Studio guide pages it comes from._
 
 ## Who does what
 

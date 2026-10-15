@@ -6,11 +6,11 @@ From changes that need a new build to people getting the new version, for an app
 
 Sources: [Update your app after launch](https://ajayexpop.github.io/appbuilder/after/updating/), [From test build to the stores](https://ajayexpop.github.io/appbuilder/release/journey/).
 
-_App Studio Playbook v1.0.0, built from the App Studio guide v1.0.1, checked against App Studio bea65df on 14 Oct 2026. Each step links to the App Studio guide pages it comes from._
+_App Studio Playbook v1.0.1, built from the App Studio guide v1.1.0, checked against App Studio c1421d4 on 14 Oct 2026. Each step links to the App Studio guide pages it comes from._
 
 ## Who does what
 
-- **Your move**: You make and save the changes, build and test the new version, write its What's new and ask to publish.
+- **Your move**: You make and save the changes, build and test the new version, and ask to publish.
 - **Our team is on it**: Your ExpoPlatform team approves your request to publish (they do by default), starts the rollout and sets the update prompts.
 - **The store is on it**: Apple and Google review each release before people can download it.
 
@@ -18,11 +18,11 @@ Sources: [From test build to the stores](https://ajayexpop.github.io/appbuilder/
 
 ## Before you start, have ready
 
-- What's new for each language of your store listing.
+- What you want the stores to show as What's new: App Studio does not send it to either store, so ask your ExpoPlatform contact.
 - Your testers: TestFlight needs at least one, and Google Play testers are Google Groups.
 - A demo account the store reviewers can sign in with, on a demo event with at least 3 sessions on its agenda.
 
-Sources: [How to write the store texts for a language](https://ajayexpop.github.io/appbuilder/release/publish/write-store-texts/), [How to send a build to your testers](https://ajayexpop.github.io/appbuilder/release/builds/send-to-testers/), [How to add or remove testers](https://ajayexpop.github.io/appbuilder/release/builds/manage-testers/), [How to give the store reviewers a demo account](https://ajayexpop.github.io/appbuilder/release/publish/add-demo-account/).
+Sources: [How to write the store texts for a language](https://ajayexpop.github.io/appbuilder/release/publish/write-store-texts/), [Set by your ExpoPlatform team](https://ajayexpop.github.io/appbuilder/help/set-by-team/), [How to send a build to your testers](https://ajayexpop.github.io/appbuilder/release/builds/send-to-testers/), [How to add or remove testers](https://ajayexpop.github.io/appbuilder/release/builds/manage-testers/), [How to give the store reviewers a demo account](https://ajayexpop.github.io/appbuilder/release/publish/add-demo-account/).
 
 ## Plan from the date the new version should reach people
 
@@ -38,7 +38,7 @@ The plan, in order, worked back from the date you enter (the new version should 
 
 - Changes for the new version saved (Your move): the date of the new test builds. What is built into the app comes from your app's settings at the time of the build.
 - New builds sent to your testers (Your move): the ask date, less the testing days and one day, on a working day. Each platform takes one release at a time, test and store releases alike.
-- What's new saved and the review check clear (Your move): the ask date. A release waits at Ready while Store review has something to sort out.
+- The review check clear (Your move): the ask date. A release waits at Ready while Store review has something to sort out.
 - Ask ExpoPlatform to publish (Your move): the approval date, less the approval's working days. Let each send to your testers finish first.
 - ExpoPlatform approves the request (Our team is on it): the start of the stores' review. Each build then goes on to its store's review, and your ExpoPlatform team confirms the date.
 - The stores review the new version (The store is on it): the rollout date, less the review days, on a working day. If a store turns the release down, a new release goes through ExpoPlatform's approval and the store's review again.
@@ -98,20 +98,20 @@ Sources: [How to send a build to your testers](https://ajayexpop.github.io/appbu
 - Done when: You and your testers have tried the new version: on iPhone, the send shows Live on TestFlight.
 - Go deeper: [How to send a build to your testers](https://ajayexpop.github.io/appbuilder/release/builds/send-to-testers/), [How to install a test build on your phone](https://ajayexpop.github.io/appbuilder/release/builds/install-a-test-build/), [How to add or remove testers](https://ajayexpop.github.io/appbuilder/release/builds/manage-testers/), [How to give the store reviewers a demo account](https://ajayexpop.github.io/appbuilder/release/publish/add-demo-account/), [From test build to the stores](https://ajayexpop.github.io/appbuilder/release/journey/)
 
-## Stage 3: Update the store listing
+## Stage 3: Get ready for the stores
 
-The store listing is your app's page in the stores: one listing for both stores, with its texts in each language. A release at Ready is sent for review on its own, unless Store review still has something to sort out.
+The store listing is your app's page in the stores: one listing for both stores, with its texts in each language, though not all of it reaches each store with a new version. A release at Ready is sent for review on its own, unless Store review still has something to sort out.
 
 Sources: [From test build to the stores](https://ajayexpop.github.io/appbuilder/release/journey/), [How to write the store texts for a language](https://ajayexpop.github.io/appbuilder/release/publish/write-store-texts/).
 
-### 5. In Publish, on Store listing, write What's new for each language and save each one.
+### 5. Ask your ExpoPlatform contact what each store will show as What's new for this version.
 
 - Who: Your move
-- On screen (drawn from App Studio's code): App name, Short description, Description, What's new, Save English
-- Why: A build's Details can give you lines for it: under For the store's “What's new”, press Copy.
-- Watch out: Switching language tabs keeps your unsaved texts on the page, but only the save button stores them.
-- Watch out: Ask your ExpoPlatform contact what each store will show as What's new for this version.
-- Done when: App Studio says “[language] texts saved”, and the listing reads Changes not sent.
+- Google Play, with a new version: Your new pictures; Not your texts; Not your What's new: a standard note instead.
+- A later App Store version: App name, Short description and Privacy policy link; Not your What's new, your other texts or your new pictures.
+- Why: App Studio does not send your What's new to either store: a Google Play release made from your request carries a standard note, “This update contains performance and stability updates.”
+- Watch out: Copy, under For the store's “What's new” in a build's Details, only copies the lines: nothing is saved or sent to the stores.
+- Done when: You know what each store will show as What's new for this version.
 - Go deeper: [How to write the store texts for a language](https://ajayexpop.github.io/appbuilder/release/publish/write-store-texts/), [How to see what changed in a build](https://ajayexpop.github.io/appbuilder/release/builds/see-changes/), [Set by your ExpoPlatform team](https://ajayexpop.github.io/appbuilder/help/set-by-team/)
 
 ### 6. Under Store review, press Check again, and fix anything marked Your move.
@@ -143,10 +143,10 @@ Sources: [From test build to the stores](https://ajayexpop.github.io/appbuilder/
 
 - Who: Our team is on it
 - On screen: “Waiting for ExpoPlatform approval: App Store [version], Google Play [version], sent [when].”
-- Why: When they approve, each build becomes a store release on its way to the store's review.
+- Why: When they approve, your store listing is sent, and each build goes on to its store's review.
 - Watch out: A declined request reads “Declined: [reason]”, or “Declined: no reason given”: sort out what the reason names and submit again, or ask your ExpoPlatform contact when no reason is given.
 - Done when: Releases says “Approved [when]: [the builds] went to the stores' review. Follow it below.”
-- Go deeper: [From test build to the stores](https://ajayexpop.github.io/appbuilder/release/journey/), [How to ask ExpoPlatform to publish the app](https://ajayexpop.github.io/appbuilder/release/publish/ask-to-publish/), [Set by your ExpoPlatform team](https://ajayexpop.github.io/appbuilder/help/set-by-team/)
+- Go deeper: [From test build to the stores](https://ajayexpop.github.io/appbuilder/release/journey/), [How to ask ExpoPlatform to publish the app](https://ajayexpop.github.io/appbuilder/release/publish/ask-to-publish/), [How to write the store texts for a language](https://ajayexpop.github.io/appbuilder/release/publish/write-store-texts/), [Set by your ExpoPlatform team](https://ajayexpop.github.io/appbuilder/help/set-by-team/)
 
 ### 9. Apple and Google review the new version; follow it on Releases.
 
