@@ -417,7 +417,7 @@ body.search-open { overflow: hidden; }
     color-scheme: light;
   }
   body { background: #FFFFFF !important; color: #0D0D28 !important; }
-  .pb-top, .pb-outline, .pb-cta, .pb-player, .pb-search, .pl-inputs, .pl-src, .vis:not(.vis-text), .st-deeper, .st-journey, .pb-from, .pb-help, .pb-next, .pb-sources a[href$=".md"], .crumbs, .skip, .pb-foot a, .sym-filter, .st-src { display: none !important; }
+  .pb-top, .pb-outline, .pb-cta, .pb-player, .pb-search, .pl-inputs, .pl-src, .vis:not(.vis-text), .st-deeper, .st-journey, .pb-from, .pb-help, .pb-next, .crumbs, .skip, .pb-foot a, .sym-filter, .st-src { display: none !important; }
   .pb-journey { display: block; }
   .pb-main { max-width: none; padding: 0; }
   .pb-card, .pb-step { box-shadow: none !important; border: 1px solid #D0D5DD !important; break-inside: avoid; }
