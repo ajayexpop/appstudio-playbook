@@ -428,6 +428,11 @@ body.pb-studio-page { background: var(--sunk); }
 .pb-foot .pb-wrap { display: flex; align-items: center; gap: 18px; max-width: 1320px; }
 .pb-foot .logo svg { height: 22px; }
 
+.pb-foot .pb-guide { display: flex; width: fit-content; align-items: center; gap: 4px; margin-top: 4px; }
+
+.pb-nw { white-space: nowrap; }
+.pb-nw svg { vertical-align: -2px; margin-left: 4px; }
+
 .pb-player { position: fixed; inset: 0; z-index: 100; background: var(--bg); display: grid; grid-template-rows: auto auto 1fr auto; }
 .pb-player[hidden] { display: none; }
 .py-top { display: flex; align-items: center; gap: 16px; height: 60px; padding: 0 20px 0 28px; border-bottom: 1px solid var(--line); }
