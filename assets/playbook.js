@@ -60,6 +60,175 @@
 
   var qp = $('#qp-date');
   if (qp) { var saved = store.get('pb-event'); if (saved) qp.value = saved; qp.addEventListener('change', function () { store.set('pb-event', qp.value); }); }
+
+  var DIP_OUT = 0.2, DIP_IN = 0.3, DIP_EARLY = 0.08;
+  var films = [];
+  var reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  var darkScheme = matchMedia('(prefers-color-scheme: dark)');
+  var hasIO = 'IntersectionObserver' in window;
+  function themeNow() { return document.documentElement.getAttribute('data-theme') || (darkScheme.matches ? 'dark' : 'light'); }
+  function filmOf(fig) { for (var i = 0; i < films.length; i++) if (films[i].fig === fig) return films[i]; return null; }
+  function filmSrc(f) { return f.fig.getAttribute('data-src-' + f.theme) + (f.end ? '#t=' + f.start + ',' + f.end : ''); }
+  function filmLoad(f) {
+    if (f.loaded) return;
+    f.loaded = true; f.theme = themeNow(); f.v.preload = 'auto'; f.v.src = filmSrc(f);
+  }
+  function filmButton(f) {
+    var on = !f.v.paused;
+    f.fig.classList.toggle('is-playing', on);
+    f.b.setAttribute('aria-label', (on ? 'Pause: ' : 'Play: ') + f.name);
+    f.b.title = on ? 'Pause' : 'Play';
+  }
+  function filmPlay(f) {
+    if (f.failed) return;
+    filmLoad(f);
+    if (!f.v.paused) return;
+    var p = f.v.play();
+    if (p && p.catch) p.catch(function () {  });
+  }
+  function filmPause(f) { if (!f.v.paused) { f.ownPause = true; f.v.pause(); } }
+  function filmDecide() {
+    var best = null, rank = function (f) { return (f.want === 'on' ? 2 : 1) + f.ratio; };
+    films.forEach(function (f) { if (f.half && f.want !== 'off' && !f.covered && !f.failed && (!best || rank(f) > rank(best))) best = f; });
+    films.forEach(function (f) { if (f === best) filmPlay(f); else filmPause(f); });
+  }
+  function filmWrap(f) { if (f.dip) filmDip(f); else f.v.currentTime = f.start; }
+  function filmDip(f) {
+    if (f.dipping) return;
+    f.dipping = true; clearTimeout(f.dipTimer);
+    var v = f.v, frame = $('.vis-frame', f.fig), dark = false;
+    var back = function () {
+      if (dark) return; dark = true;
+      frame.removeEventListener('transitionend', ended); clearTimeout(f.dipTimer);
+      var shown = false;
+      var show = function () {
+        if (shown) return; shown = true;
+        v.removeEventListener('seeked', seeked); clearTimeout(f.dipTimer);
+        f.fig.classList.remove('is-dipping');
+        f.dipTimer = setTimeout(function () { f.dipping = false; f.dipTimer = 0; }, DIP_IN * 1000);
+      };
+      var seeked = function () { if (Math.abs(v.currentTime - f.start) < 0.3) show(); };
+      v.addEventListener('seeked', seeked);
+      f.dipTimer = setTimeout(show, 800);
+      v.currentTime = f.start;
+      if (v.paused && f.want !== 'off' && f.half && !f.covered) filmPlay(f);
+    };
+    var ended = function (e) { if (e.target === frame && e.pseudoElement === '::after' && e.propertyName === 'opacity') back(); };
+    frame.addEventListener('transitionend', ended);
+    f.dipTimer = setTimeout(back, (DIP_OUT + 0.15) * 1000);
+    f.fig.classList.add('is-dipping');
+  }
+  function filmTick(f) {
+    var v = f.v, t = v.currentTime;
+    if (f.end && !f.dipping) {
+      var lead = f.dip ? DIP_OUT + DIP_EARLY : 0;
+      if (t < f.start - 0.25) { v.currentTime = f.start; return; }
+      if (t >= f.end || (lead && !v.paused && t >= f.end - lead)) { filmWrap(f); return; }
+      if (!v.paused && f.end - lead - t < 0.35 && !f.timer) {
+        f.timer = setTimeout(function () { f.timer = 0; if (!v.paused && !f.dipping && v.currentTime >= f.end - lead - 0.4) filmWrap(f); }, Math.max(0, (f.end - lead - t) * 1000 / (v.playbackRate || 1)));
+      }
+    }
+    f.stops.forEach(function (li) { li.classList.toggle('is-now', t >= Number(li.getAttribute('data-start')) && t < Number(li.getAttribute('data-end'))); });
+  }
+  var nearIO = hasIO ? new IntersectionObserver(function (es) {
+    es.forEach(function (e) { var f = filmOf(e.target); if (f && e.isIntersecting && f.want !== 'off') filmLoad(f); });
+  }, { rootMargin: '400px 0px' }) : null;
+  var halfIO = hasIO ? new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      var f = filmOf(e.target); if (!f) return;
+      f.ratio = e.intersectionRatio;
+      f.half = e.isIntersecting && (e.intersectionRatio >= 0.499 || (!!e.rootBounds && e.intersectionRect.height >= e.rootBounds.height / 2));
+    });
+    filmDecide();
+  }, { threshold: [0, 0.25, 0.5, 0.75, 1] }) : null;
+  function filmAdd(fig) {
+    var v = $('video', fig), b = $('.film-btn', fig);
+    if (!v || !b || filmOf(fig)) return;
+    var box = fig.closest('.as-film');
+    var f = { fig: fig, v: v, b: b, name: fig.getAttribute('data-name') || '', start: Number(fig.getAttribute('data-start')) || 0, end: Number(fig.getAttribute('data-end')) || 0,
+      want: reduceMotion.matches ? 'off' : 'auto', readerOff: false, loaded: false, theme: null, half: false, ratio: 0, covered: false, failed: false,
+      restore: null, resume: false, ownPause: false, timer: 0, dip: false, dipping: false, dipTimer: 0, click: fig.hasAttribute('data-click'), stops: box ? $$('.fs-stop', box) : [] };
+    f.dip = !!f.end && fig.getAttribute('data-loop') !== 'seamless';
+    if (f.click) f.want = 'off';
+    fig.classList.remove('is-playing', 'is-failed', 'is-dipping');
+    if (v.hasAttribute('src')) { v.removeAttribute('src'); v.load(); }
+    v.muted = true; v.loop = !f.click;
+    v.addEventListener('ended', function () { if (f.click) { f.want = 'off'; v.currentTime = 0; filmButton(f); } });
+    v.addEventListener('play', function () { filmButton(f); });
+    v.addEventListener('pause', function () {
+      var own = f.ownPause; f.ownPause = false;
+      if (!own && f.dipping) return;
+      filmButton(f);
+      if (!own && f.end && v.currentTime >= f.end - 0.1 && f.want !== 'off' && f.half && !f.covered) { if (f.dip) filmDip(f); else { v.currentTime = f.start; filmPlay(f); } }
+    });
+    v.addEventListener('timeupdate', function () { filmTick(f); });
+    v.addEventListener('loadedmetadata', function () {
+      if (f.restore != null) { var t = f.restore; f.restore = null; if (Math.abs(v.currentTime - t) > 0.05) v.currentTime = t; }
+      if (f.resume) { f.resume = false; filmPlay(f); }
+    });
+    v.addEventListener('error', function () { f.failed = true; fig.classList.add('is-failed'); });
+    b.addEventListener('click', function () {
+      if (!v.paused) { f.want = 'off'; f.readerOff = true; filmPause(f); return; }
+      films.forEach(function (x) { if (x !== f) { if (x.want === 'on') x.want = 'auto'; filmPause(x); } });
+      f.want = 'on'; f.readerOff = false; filmPlay(f);
+    });
+    films.push(f);
+    if (nearIO) { nearIO.observe(fig); halfIO.observe(fig); }
+  }
+  function filmsIn(root) { $$('.vis-film', root).forEach(filmAdd); }
+  function filmsOut(root) {
+    films = films.filter(function (f) {
+      if (!root.contains(f.fig)) return true;
+      filmPause(f); clearTimeout(f.timer); clearTimeout(f.dipTimer);
+      if (nearIO) { nearIO.unobserve(f.fig); halfIO.unobserve(f.fig); }
+      return false;
+    });
+  }
+  function filmsCovered(on, except) {
+    films.forEach(function (f) { if (except && except.contains(f.fig)) return; f.covered = on; if (on) filmPause(f); });
+    if (!on) filmDecide();
+  }
+  function filmsTheme() {
+    var t = themeNow();
+    films.forEach(function (f) {
+      if (!f.loaded || f.theme === t) return;
+      var v = f.v, at = v.currentTime;
+      f.resume = !v.paused; f.restore = at; f.theme = t;
+      v.src = filmSrc(f);
+      v.currentTime = at;
+      filmButton(f);
+    });
+  }
+  filmsIn(document);
+  if (films.length || $('.oc-pic')) {
+    new MutationObserver(filmsTheme).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    if (darkScheme.addEventListener) darkScheme.addEventListener('change', filmsTheme);
+    if (reduceMotion.addEventListener) reduceMotion.addEventListener('change', function () {
+      films.forEach(function (f) {
+        if (f.click) return;
+        if (reduceMotion.matches && f.want === 'auto') { f.want = 'off'; filmPause(f); }
+        else if (!reduceMotion.matches && f.want === 'off' && !f.readerOff) f.want = 'auto';
+      });
+      filmDecide();
+    });
+    window.addEventListener('beforeprint', function () { $$('.vis-film img, .oc-pic img').forEach(function (img) { img.loading = 'eager'; }); });
+  }
+  document.addEventListener('click', function (e) {
+    var s = e.target.closest('.fs-seek'); if (!s) return;
+    var box = s.closest('.as-film'), fig = box && $('.vis-film', box), f = fig && filmOf(fig);
+    if (!f) return;
+    var t = Number(s.getAttribute('data-seek')) || 0;
+    filmLoad(f);
+    if (f.v.readyState < 1) f.restore = t;
+    f.v.currentTime = t;
+    f.stops.forEach(function (li) { li.classList.toggle('is-now', li.contains(s)); });
+    if (!reduceMotion.matches) {
+      films.forEach(function (x) { if (x !== f) { if (x.want === 'on') x.want = 'auto'; filmPause(x); } });
+      f.want = 'on'; f.readerOff = false; filmPlay(f);
+    }
+    var r = fig.getBoundingClientRect();
+    if (r.top < 64 || r.bottom > window.innerHeight) fig.scrollIntoView({ block: 'center', behavior: reduceMotion.matches ? 'auto' : 'smooth' });
+  });
   if (!journey) return;
 
   var KEY = 'pb:' + journey + ':done';
@@ -173,8 +342,10 @@
   function show(i) {
     at = Math.max(0, Math.min(steps.length - 1, i));
     var st = steps[at]; var id = st.getAttribute('data-step');
-    var vis = $('.vis', st);
-    $('.py-vis', player).innerHTML = vis ? vis.outerHTML : '';
+    var vis = $('.vis', st), pyVis = $('.py-vis', player);
+    filmsOut(pyVis);
+    pyVis.innerHTML = vis ? vis.outerHTML : '';
+    filmsIn(pyVis);
     player.classList.toggle('py-novis', !vis);
     $('.py-stage', player).textContent = $('.stage-k', st.closest('.pb-stage')).textContent + ' · ' + $('.stage-head h2', st.closest('.pb-stage')).textContent;
     $('#pl-title').innerHTML = $('.st-title h3', st).innerHTML;
@@ -187,9 +358,10 @@
     var nx = $('.py-next', player); nx.disabled = false;
     nx.innerHTML = at === steps.length - 1 ? 'Finish' : 'Next <svg class="i s16" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>';
   }
-  function open(i) { lastFocus = document.activeElement; player.hidden = false; body.classList.add('player-open'); show(i); $('.py-close', player).focus(); }
+  function open(i) { lastFocus = document.activeElement; filmsCovered(true, player); player.hidden = false; body.classList.add('player-open'); show(i); $('.py-close', player).focus(); }
   function close() {
     player.hidden = true; body.classList.remove('player-open');
+    filmsOut($('.py-vis', player)); filmsCovered(false);
     var st = steps[at]; if (st) st.scrollIntoView({ block: 'start' });
     if (lastFocus && lastFocus.focus) lastFocus.focus();
   }
